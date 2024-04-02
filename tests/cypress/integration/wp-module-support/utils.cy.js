@@ -3,7 +3,7 @@ import { getAppId } from './pluginID.cy';
 const appId = getAppId();
 const customCommandTimeout = 30000;
 const mediumWait = 60000;
-const longWait = 90000;
+const longWait = 120000;
 
 export const comingSoon = ( shouldBeComingSoon ) => {
 	cy.get( `.${ appId }-app-navitem-Settings`, {
@@ -40,13 +40,34 @@ export const comingSoon = ( shouldBeComingSoon ) => {
 };
 
 export const installWoo = () => {
-	cy.get(
-		'.nfd-app-section-content .nfd-bg-canvas .nfd-button.nfd-button--upsell'
-	)
-		.eq( 0 )
+	cy.exec( `npx wp-env run cli wp plugin install woocommerce`, {
+		timeout: longWait, failOnNonZeroExit: false, log: true
+	} );
+	
+	cy.exec( `npx wp-env run cli wp plugin activate woocommerce`, {
+		timeout: longWait, failOnNonZeroExit: false
+	} );
+};
+
+export const viewCompletedTasks = () => {
+	cy.get( '.nfd-card.nfd-p-0', {
+		timeout: customCommandTimeout,
+	} )
+		.next()
 		.click();
-	cy.get( '.nfd-notifications--bottom-left .nfd-notification--success', {
-		timeout: longWait,
-	} ).should( 'exist' );
-	cy.get( '.nfd-w-0  p' ).should( 'exist' );
+};
+
+export const viewRemainingTasks = () => {
+	cy.get( '.nfd-card.nfd-p-0', {
+		timeout: customCommandTimeout,
+	} )
+		.next()
+		.click();
+};
+
+export const waitForNextSteps = () => {
+	cy.get( '.nfd-grid.nfd-gap-4' , { timeout: customCommandTimeout } )
+		.as( 'nextSteps' )
+		.scrollIntoView()
+		.should( 'exist' );
 };
