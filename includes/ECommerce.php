@@ -69,6 +69,15 @@ class ECommerce {
 		'yoast_seo_signup_status',
 	);
 
+	 /**
+   * ECommerce constructor.
+   *
+   * @param Container $container Container loaded from the brand plugin.
+   */
+  public function __construct( Container $container ) {
+    $capability = new SiteCapabilities();
+    $hasYithExtended = $capability->get( 'hasYithExtended' );
+    $canAccessGlobalCTB = $capability->get( 'canAccessGlobalCTB' );
 
     $this->container = $container;
     // Module functionality goes here
@@ -129,7 +138,7 @@ class ECommerce {
         return $classes;
       }
     );    
-  }
+
 
 		if ( ( $container->plugin()->id === 'bluehost' && ( $canAccessGlobalCTB || $hasYithExtended ) ) || ( $container->plugin()->id === 'hostgator' && $hasYithExtended ) ) {
 			add_filter( 'admin_menu', array( $this, 'custom_add_promotion_menu_item' ) );
@@ -139,6 +148,7 @@ class ECommerce {
 			add_action( 'woocommerce_product_data_panels', array( $this, 'promotion_product_data' ) );
 			add_action( 'admin_head', array( $this, 'action_admin_head' ) );
 		}
+	
 
 		// Handle WonderCart Integrations
 		if ( is_plugin_active( 'wonder-cart/init.php' ) ) {
