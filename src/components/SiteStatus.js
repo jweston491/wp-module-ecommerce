@@ -44,7 +44,7 @@ export function SiteStatus({ comingSoon, toggleComingSoon, notify }) {
       $statusText.style.setProperty("color", "var(--nfd-ecommerce-text-dark-success)");
     }
   });
-  if (!true) {
+  if (!comingSoon) {
     return null;
   }
   return (
