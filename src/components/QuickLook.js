@@ -96,6 +96,9 @@ function RecentActivity() {
       )}
       {cards.length > 0 && (
         <>
+          <span className="nfd-whitespace-pre-wrap nfd-leading-tight">
+            {cards[0]?.state?.reportValue === "-" && __("Once you launch your store, you'll see a snapshot of recent purchases and other \ncustomer activity here.", "wp-module-ecommerce")}
+          </span>
           <div
             className={classNames(
               "nfd-flex-1 nfd-grid nfd-gap-4",

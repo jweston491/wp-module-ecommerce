@@ -14,7 +14,8 @@ import booking from "../icons/brands/yith-woocommerce-booking.svg";
 import customizeAccount from "../icons/brands/yith-woocommerce-customize-myaccount-page.svg";
 import gift from "../icons/brands/yith-woocommerce-gift-card.svg";
 import wishList from "../icons/brands/yith-woocommerce-wishlist.svg";
-import { 
+import lightchest from '../icons/light-chest.svg'
+import {
   YITH_WOOCOMMERCE_ACCOUNT_PAGE,
   YITH_WOOCOMMERCE_AJAX_PRODUCT_FILTER,
   YITH_WOOCOMMERCE_BOOKING_APPOINTMENTS,
@@ -83,7 +84,7 @@ export function YITHPlugins({ woo, wpModules }) {
     { refreshInterval: 10 * 1000, isPaused: () => !woo.isActive }
   );
   const [yithProducts, setYithProducts] = useState([]);
-  useEffect( () => {
+  useEffect(() => {
     const fecthApi = async () => {
       const data = await apiFetch({
         url: NewfoldRuntime.createApiUrl("/newfold-marketplace/v1/marketplace"),
@@ -103,14 +104,22 @@ export function YITHPlugins({ woo, wpModules }) {
   }
 
   return (
-    <Section.Container id="ecommerce-features-wrapper">
-      <Section.Header
-        title={__("eCommerce Features", "wp-module-ecommerce")}
-        subTitle={__(
-          "Improve your store with these powerful add-ons.",
-          "wp-module-ecommerce"
-        )}
-      />
+    <Section.Container id="ecommerce-features-wrapper" className={"nfd-border nfd-border-amber-300 nfd-rounded-xl"}>
+      <div className="nfd-flex nfd-p-8 nfd-flex-row nfd-justify-between nfd-gap-6 nfd-items-center">
+        <img
+          src={lightchest}
+          className="nfd-w-48 nfd-text-[--nfd-ecommerce-text-dark]"
+        />
+        <div className="nfd-flex nfd-flex-col nfd-gap-3">
+          <h2 className="nfd-font-medium nfd-text-base">
+            {__("Elevate Your Store with Exclusive WooCommerce Tools Included in Your Plan!", "wp-module-ecommerce")}
+          </h2>
+          {__(
+            "Unlock the full power of your plan with access to a range of exclusive WooCommerce tools powered by \nYITH. Enhance your store and keep your customers coming back for more!",
+            "wp-module-ecommerce"
+          )}
+        </div>
+      </div>
       <Section.Content>
         {cards.length === 0 && (
           <div className="nfd-flex nfd-items-center nfd-text-center nfd-justify-center nfd-h-60">
@@ -133,7 +142,6 @@ export function YITHPlugins({ woo, wpModules }) {
                 <YithFeatureCard
                   key={product.id}
                   id={product.id}
-                  key={product.id}
                   yithProducts={product}
                   yithPluginsMap={yithPluginsMap}
                   cards={cards}
