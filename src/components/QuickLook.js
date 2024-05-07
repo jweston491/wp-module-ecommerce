@@ -227,30 +227,28 @@ export function QuickLook(props) {
   let shouldUpsell = !props.woo.isActive;
   let [installWoo, isInstalling] = useInstallWoo(props);
   return (
-    <>
-      <FeatureUpsell
-        className={"nfd-p-0 hide-html"}
-        shouldUpsell={shouldUpsell}
-        variant="card"
-        cardText={__("Install WooCommerce to unlock", "wp-module-ecommerce")}
-        as="button"
-        disabled={isInstalling}
-        onClick={installWoo}
-        id="install-woocommerce-to-unlock-btn"
-      >
-        <Section.Content>
-          <Section.Block>
-            <div
-              className={classNames(
-                "nfd-flex nfd-flex-col",
-                "xl:nfd-flex-row"
-              )}
-            >
-              <RecentActivity />
-            </div>
-          </Section.Block>
-        </Section.Content>
-      </FeatureUpsell>
-    </>
+    <FeatureUpsell
+      className={"hide-html"}
+      shouldUpsell={shouldUpsell}
+      variant="card"
+      cardText={__("Install WooCommerce to unlock", "wp-module-ecommerce")}
+      as="button"
+      disabled={isInstalling}
+      onClick={installWoo}
+      id="install-woocommerce-to-unlock-btn"
+    >
+      <Section.Content>
+        <Section.Block>
+          <div
+            className={classNames(
+              "nfd-flex nfd-flex-col",
+              "xl:nfd-flex-row"
+            )}
+          >
+            <RecentActivity />
+          </div>
+        </Section.Block>
+      </Section.Content>
+    </FeatureUpsell>
   );
 }
