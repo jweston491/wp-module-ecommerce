@@ -26,54 +26,63 @@ import {
 export function YITHPlugins({ woo, wpModules }) {
   const yithPluginsMap = new Map([
     [
-      "fc4cbc14-470d-471b-b448-c6666e5b763d",
+      "f7834881-f5df-43ab-9c7e-c4e6969f5606",
       {
-        title: "nfd_slug_yith_woocommerce_booking",
-        name: "YITH Booking and Appointment for WooCommerce",
-        learnMore: YITH_WOOCOMMERCE_BOOKING_APPOINTMENTS,
-        image: booking,
-      },
-    ],
-    [
-      "e307cb8f-24b5-46e1-81e3-83de32c62c78",
-      {
-        title: "yith-woocommerce-ajax-search",
-        name: "YITH WooCommerce AJAX Search",
-        image: search,
+        title: "nfd_slug_yith_woocommerce_gift_cards",
+        name: "Gift Cards",
+        learnMore: YITH_WOOCOMMERCE_GIFT_CARDS,
+        image: gift,
       },
     ],
     [
       "93c942e4-36fb-46be-867b-5f0d014adb22",
       {
         title: "nfd_slug_yith_woocommerce_wishlist",
-        name: "YITH WooCommerce Wishlist",
+        name: "Wishlist",
         learnMore: YITH_WOOCOMMERCE_WISHLIST,
         image: wishList,
+      },
+    ],
+    [
+      "93c942e4-36fb-46be-867b-5f0d014adb22wondercart",
+      {
+        title: "nfd_slug_yith_woocommerce_wishlist",
+        name: "WonderCart",
+        learnMore: YITH_WOOCOMMERCE_WISHLIST,
+        image: wishList,
+      },
+    ],
+    [
+      "fc4cbc14-470d-471b-b448-c6666e5b763d",
+      {
+        title: "nfd_slug_yith_woocommerce_booking",
+        name: "Booking and Appointments",
+        learnMore: YITH_WOOCOMMERCE_BOOKING_APPOINTMENTS,
+        image: booking,
       },
     ],
     [
       "c7025d24-a05a-4f01-bca7-5c9bcd17bb76",
       {
         title: "nfd_slug_yith_woocommerce_ajax_product_filter",
-        name: "YITH WooCommerce Ajax Product Filter",
+        name: "Product Filter",
         learnMore: YITH_WOOCOMMERCE_AJAX_PRODUCT_FILTER,
         image: filter,
       },
     ],
     [
-      "f7834881-f5df-43ab-9c7e-c4e6969f5606",
+      "e307cb8f-24b5-46e1-81e3-83de32c62c78",
       {
-        title: "nfd_slug_yith_woocommerce_gift_cards",
-        name: "YITH WooCommerce Gift Cards",
-        learnMore: YITH_WOOCOMMERCE_GIFT_CARDS,
-        image: gift,
+        title: "yith-woocommerce-ajax-search",
+        name: "Product Search",
+        image: search,
       },
     ],
     [
       "58701f50-cb5c-4b39-b030-edadf4af6f97",
       {
         title: "nfd_slug_yith_woocommerce_customize_myaccount_page",
-        name: "YITH WooCommerce Customize My Account Page",
+        name: "Customize My Account Page",
         learnMore: YITH_WOOCOMMERCE_ACCOUNT_PAGE,
         image: customizeAccount,
       },
@@ -104,7 +113,7 @@ export function YITHPlugins({ woo, wpModules }) {
   }
 
   return (
-    <Section.Container id="ecommerce-features-wrapper" className={"nfd-border nfd-border-amber-300 nfd-rounded-xl"}>
+    <Section.Container id="ecommerce-features-wrapper" className={"nfd-border nfd-border-amber-300 nfd-rounded-xl nfd-pt-0"}>
       <div className="nfd-flex nfd-p-8 nfd-flex-row nfd-justify-between nfd-gap-6 nfd-items-center">
         <img
           src={lightchest}
@@ -128,7 +137,7 @@ export function YITHPlugins({ woo, wpModules }) {
         )}
         <div
           className={classNames(
-            "nfd-grid nfd-gap-6",
+            "nfd-grid nfd-gap-5",
             "sm:nfd-grid-cols-1",
             "md:nfd-grid-cols-2",
             "lg:nfd-grid-cols-3"

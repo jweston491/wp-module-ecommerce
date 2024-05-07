@@ -240,7 +240,7 @@ export function QuickLook(props) {
       onClick={installWoo}
       id="install-woocommerce-to-unlock-btn"
     >
-      <Section.Content>
+      <Section.Content className={"nfd-pt-4"} subClassName={"nfd-pb-4"}>
         <Section.Block>
           <div
             className={classNames(
