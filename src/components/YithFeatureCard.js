@@ -17,17 +17,17 @@ export function YithFeatureCard({
     !state?.isActive && !state?.isQueueEmpty && !state?.isInstalling;
   return (
     <Card id={yithPluginsMap.get(id).title}>
-      <Card.Content>
-        <div className={"nfd-flex nfd-flex-row nfd-gap-2 nfd-items-center"}>
+      <Card.Content className={"nfd-flex nfd-flex-col nfd-gap-3"}>
+        <div className={"nfd-flex nfd-flex-row nfd-gap-3 nfd-items-center"}>
           <img
             src={yithPluginsMap.get(id).image}
             className="nfd-w-12 nfd-text-[--nfd-ecommerce-text-dark]"
           />
           <Title size="4" className="nfd-leading-normal nfd-my-4">
-            {name}
+            {yithPluginsMap.get(id).name}
           </Title>
         </div>
-        {description ? <span>{description}</span> : null}
+        {description ? <span>{yithPluginsMap.get(id).desc}</span> : null}
         {/* {yithPluginsMap.get(id).learnMore && (
           <Link
             className="nfd-flex nfd-mt-4 nfd-items-center nfd-gap-2 nfd-no-underline"

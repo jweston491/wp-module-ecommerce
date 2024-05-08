@@ -30,6 +30,7 @@ export function YITHPlugins({ woo, wpModules }) {
       {
         title: "nfd_slug_yith_woocommerce_gift_cards",
         name: "Gift Cards",
+        desc: "Offer customizable gift cards with personalized messages for the recipient.",
         learnMore: YITH_WOOCOMMERCE_GIFT_CARDS,
         image: gift,
       },
@@ -39,6 +40,7 @@ export function YITHPlugins({ woo, wpModules }) {
       {
         title: "nfd_slug_yith_woocommerce_wishlist",
         name: "Wishlist",
+        desc: "Let customers add products to lists and share them with family and friends.",
         learnMore: YITH_WOOCOMMERCE_WISHLIST,
         image: wishList,
       },
@@ -46,8 +48,9 @@ export function YITHPlugins({ woo, wpModules }) {
     [
       "93c942e4-36fb-46be-867b-5f0d014adb22wondercart",
       {
-        title: "nfd_slug_yith_woocommerce_wishlist",
+        title: "nfd_slug_yith_wondercart",
         name: "WonderCart",
+        desc: "Create custom upsell, cross-sell and other promotional campaigns to generate more sales.",
         learnMore: YITH_WOOCOMMERCE_WISHLIST,
         image: wishList,
       },
@@ -57,6 +60,7 @@ export function YITHPlugins({ woo, wpModules }) {
       {
         title: "nfd_slug_yith_woocommerce_booking",
         name: "Booking and Appointments",
+        desc: "Manage renting or booking of services and items so customers can do business with you.",
         learnMore: YITH_WOOCOMMERCE_BOOKING_APPOINTMENTS,
         image: booking,
       },
@@ -66,6 +70,7 @@ export function YITHPlugins({ woo, wpModules }) {
       {
         title: "nfd_slug_yith_woocommerce_ajax_product_filter",
         name: "Product Filter",
+        desc: "Add an advanced filter to help customers find the right product with ease.",
         learnMore: YITH_WOOCOMMERCE_AJAX_PRODUCT_FILTER,
         image: filter,
       },
@@ -75,6 +80,7 @@ export function YITHPlugins({ woo, wpModules }) {
       {
         title: "yith-woocommerce-ajax-search",
         name: "Product Search",
+        desc: "Speed up search for your customers with a predictive real-time search engine.",
         image: search,
       },
     ],
@@ -83,10 +89,21 @@ export function YITHPlugins({ woo, wpModules }) {
       {
         title: "nfd_slug_yith_woocommerce_customize_myaccount_page",
         name: "Customize My Account Page",
+        desc: "Add custom content like videos, files, discount codes, and more to your customers account page.",
         learnMore: YITH_WOOCOMMERCE_ACCOUNT_PAGE,
         image: customizeAccount,
       },
     ],
+    [
+      "58701f50-cb5c-4b39-b030-edadf4af6f97ecodash",
+      {
+        title: "nfd_slug_yith_woocommerce_ecomdash",
+        name: "ecomdash",
+        desc: "Boost sales by selling your products and services across multiple marketplaces.",
+        learnMore: YITH_WOOCOMMERCE_ACCOUNT_PAGE,
+        image: customizeAccount,
+      },
+    ]
   ]);
   let [cards] = useCardManager(
     YITHPluginsDefinitions({ notify: wpModules.notify }),
@@ -146,7 +163,7 @@ export function YITHPlugins({ woo, wpModules }) {
         >
           {yithProducts
             ?.filter((product) => yithPluginsMap.has(product.id))
-            .map((product) => {
+            .map((product,index) => {
               return (
                 <YithFeatureCard
                   key={product.id}
