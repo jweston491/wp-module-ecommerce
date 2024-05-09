@@ -4,7 +4,7 @@ import { AnalyticsSdk } from "../sdk/analytics";
 import { ArrowLongRightIcon } from "@heroicons/react/20/solid";
 
 export function YithFeatureCard({
-  yithProducts: { name, description, primaryUrl, clickToBuyId },
+  yithProducts: { name, desc, primaryUrl, clickToBuyId },
   yithPluginsMap,
   id,
   cards,
@@ -27,7 +27,7 @@ export function YithFeatureCard({
             {name}
           </Title>
         </div>
-        {description ? <span>{description}</span> : null}
+        <span>{desc}</span>
         {/* {yithPluginsMap.get(id).learnMore && (
           <Link
             className="nfd-flex nfd-mt-4 nfd-items-center nfd-gap-2 nfd-no-underline"

@@ -9,6 +9,7 @@ import apiFetch from "@wordpress/api-fetch";
 import { NewfoldRuntime } from "../sdk/NewfoldRuntime";
 import { YithFeatureCard } from "./YithFeatureCard";
 import { StoreWonderCart } from "./StoreWonderCart";
+import { EcomDash } from "./EcomDash";
 import filter from "../icons/brands/yith-woocommerce-ajax-product-filter.svg";
 import search from "../icons/brands/yith-woocommerce-ajax-search.svg";
 import booking from "../icons/brands/yith-woocommerce-booking.svg";
@@ -17,6 +18,7 @@ import gift from "../icons/brands/yith-woocommerce-gift-card.svg";
 import wishList from "../icons/brands/yith-woocommerce-wishlist.svg";
 import lightchest from '../icons/light-chest.svg';
 import wondercartImg from '../icons/wonder-cart.svg';
+import ecomdash from '../icons/ecomdash.svg'
 import {
   YITH_WOOCOMMERCE_ACCOUNT_PAGE,
   YITH_WOOCOMMERCE_AJAX_PRODUCT_FILTER,
@@ -59,7 +61,7 @@ export function YITHPlugins({ woo, wpModules }) {
         desc: "Create custom upsell, cross-sell and other promotional campaigns to generate more sales.",
         learnMore: YITH_WOOCOMMERCE_WISHLIST,
         image: wondercartImg,
-        primaryUrl: "wp-admin/admin.php?page=bluehost#/store/sales_discounts"
+        primaryUrl: "admin.php?page=bluehost#/store/sales_discounts"
       },
     ],
     [
@@ -116,7 +118,7 @@ export function YITHPlugins({ woo, wpModules }) {
         name: "ecomdash",
         desc: "Boost sales by selling your products and services across multiple marketplaces.",
         learnMore: YITH_WOOCOMMERCE_ACCOUNT_PAGE,
-        image: customizeAccount,
+        image: ecomdash,
         primaryUrl: "",
       },
     ]
@@ -196,6 +198,15 @@ export function YITHPlugins({ woo, wpModules }) {
               if (index === 2) {
                 return (
                   <StoreWonderCart
+                    key={index}
+                    id={product}
+                    yithPluginsMap={yithPluginsMap}
+                  />
+                )
+              }
+              if (index === 7) {
+                return (
+                  <EcomDash
                     key={index}
                     id={product}
                     yithPluginsMap={yithPluginsMap}

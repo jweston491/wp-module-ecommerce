@@ -1,7 +1,7 @@
 import { Button, Card, Title } from "@newfold/ui-component-library";
 import { __ } from "@wordpress/i18n";
 
-export function StoreWonderCart({ yithPluginsMap, id }) {
+export function EcomDash({ yithPluginsMap, id }) {
   return (
     <Card id={yithPluginsMap.get(id).title}>
       <Card.Content className={"nfd-flex nfd-flex-col nfd-gap-3"}>
@@ -23,10 +23,10 @@ export function StoreWonderCart({ yithPluginsMap, id }) {
           as="a"
           href={yithPluginsMap.get(id).primaryUrl}
         >
-          <span>{__("Create a Campaign", "wp-module-ecommerce")}</span>
+          <span>{__("Setup Sales Channels", "wp-module-ecommerce")}</span>
         </Button>
       </Card.Footer>
     </Card>
-  );
+  )
 
 }
