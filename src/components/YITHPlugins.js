@@ -8,13 +8,15 @@ import { useEffect, useState } from "@wordpress/element";
 import apiFetch from "@wordpress/api-fetch";
 import { NewfoldRuntime } from "../sdk/NewfoldRuntime";
 import { YithFeatureCard } from "./YithFeatureCard";
+import { StoreWonderCart } from "./StoreWonderCart";
 import filter from "../icons/brands/yith-woocommerce-ajax-product-filter.svg";
 import search from "../icons/brands/yith-woocommerce-ajax-search.svg";
 import booking from "../icons/brands/yith-woocommerce-booking.svg";
 import customizeAccount from "../icons/brands/yith-woocommerce-customize-myaccount-page.svg";
 import gift from "../icons/brands/yith-woocommerce-gift-card.svg";
 import wishList from "../icons/brands/yith-woocommerce-wishlist.svg";
-import lightchest from '../icons/light-chest.svg'
+import lightchest from '../icons/light-chest.svg';
+import wondercartImg from '../icons/wonder-cart.svg';
 import {
   YITH_WOOCOMMERCE_ACCOUNT_PAGE,
   YITH_WOOCOMMERCE_AJAX_PRODUCT_FILTER,
@@ -24,7 +26,7 @@ import {
 } from "../constants";
 
 export function YITHPlugins({ woo, wpModules }) {
-  const yithPluginsMap = new Map([
+  const [yithPluginsMap, setYithPluginsMap] = useState(new Map([
     [
       "f7834881-f5df-43ab-9c7e-c4e6969f5606",
       {
@@ -33,6 +35,8 @@ export function YITHPlugins({ woo, wpModules }) {
         desc: "Offer customizable gift cards with personalized messages for the recipient.",
         learnMore: YITH_WOOCOMMERCE_GIFT_CARDS,
         image: gift,
+        primaryUrl: "",
+        clickToBuyId: ""
       },
     ],
     [
@@ -43,16 +47,19 @@ export function YITHPlugins({ woo, wpModules }) {
         desc: "Let customers add products to lists and share them with family and friends.",
         learnMore: YITH_WOOCOMMERCE_WISHLIST,
         image: wishList,
+        primaryUrl: "",
+        clickToBuyId: ""
       },
     ],
     [
-      "93c942e4-36fb-46be-867b-5f0d014adb22wondercart",
+      "wondercart",
       {
         title: "nfd_slug_yith_wondercart",
         name: "WonderCart",
         desc: "Create custom upsell, cross-sell and other promotional campaigns to generate more sales.",
         learnMore: YITH_WOOCOMMERCE_WISHLIST,
-        image: wishList,
+        image: wondercartImg,
+        primaryUrl: "wp-admin/admin.php?page=bluehost#/store/sales_discounts"
       },
     ],
     [
@@ -63,6 +70,8 @@ export function YITHPlugins({ woo, wpModules }) {
         desc: "Manage renting or booking of services and items so customers can do business with you.",
         learnMore: YITH_WOOCOMMERCE_BOOKING_APPOINTMENTS,
         image: booking,
+        primaryUrl: "",
+        clickToBuyId: ""
       },
     ],
     [
@@ -73,6 +82,8 @@ export function YITHPlugins({ woo, wpModules }) {
         desc: "Add an advanced filter to help customers find the right product with ease.",
         learnMore: YITH_WOOCOMMERCE_AJAX_PRODUCT_FILTER,
         image: filter,
+        primaryUrl: "",
+        clickToBuyId: ""
       },
     ],
     [
@@ -82,6 +93,8 @@ export function YITHPlugins({ woo, wpModules }) {
         name: "Product Search",
         desc: "Speed up search for your customers with a predictive real-time search engine.",
         image: search,
+        primaryUrl: "",
+        clickToBuyId: ""
       },
     ],
     [
@@ -92,19 +105,22 @@ export function YITHPlugins({ woo, wpModules }) {
         desc: "Add custom content like videos, files, discount codes, and more to your customers account page.",
         learnMore: YITH_WOOCOMMERCE_ACCOUNT_PAGE,
         image: customizeAccount,
+        primaryUrl: "",
+        clickToBuyId: ""
       },
     ],
     [
-      "58701f50-cb5c-4b39-b030-edadf4af6f97ecodash",
+      "ecodash",
       {
         title: "nfd_slug_yith_woocommerce_ecomdash",
         name: "ecomdash",
         desc: "Boost sales by selling your products and services across multiple marketplaces.",
         learnMore: YITH_WOOCOMMERCE_ACCOUNT_PAGE,
         image: customizeAccount,
+        primaryUrl: "",
       },
     ]
-  ]);
+  ]));
   let [cards] = useCardManager(
     YITHPluginsDefinitions({ notify: wpModules.notify }),
     { refreshInterval: 10 * 1000, isPaused: () => !woo.isActive }
@@ -125,6 +141,20 @@ export function YITHPlugins({ woo, wpModules }) {
     }
     fecthApi()
   }, []);
+
+  useEffect(() => {
+    yithProducts?.filter((product) => yithPluginsMap.has(product.id))
+      .forEach((product) => {
+        let updatedObject = yithPluginsMap.get(product.id);
+        updatedObject.primaryUrl = product.primaryUrl;
+        updatedObject.clickToBuyId = product.clickToBuyId;
+        setYithPluginsMap(yithPluginsMap.set(String(product.id), updatedObject), ...yithPluginsMap);
+      }
+      )
+
+  }, [yithProducts])
+
+
   if (!woo.isActive) {
     return null;
   }
@@ -161,14 +191,22 @@ export function YITHPlugins({ woo, wpModules }) {
           )}
           id="ecommerce-features-container"
         >
-          {yithProducts
-            ?.filter((product) => yithPluginsMap.has(product.id))
-            .map((product,index) => {
+          {Array.from(yithPluginsMap.keys())
+            .map((product, index) => {
+              if (index === 2) {
+                return (
+                  <StoreWonderCart
+                    key={index}
+                    id={product}
+                    yithPluginsMap={yithPluginsMap}
+                  />
+                )
+              }
               return (
                 <YithFeatureCard
-                  key={product.id}
-                  id={product.id}
-                  yithProducts={product}
+                  key={product}
+                  id={product}
+                  yithProducts={yithPluginsMap.get(product)}
                   yithPluginsMap={yithPluginsMap}
                   cards={cards}
                 />

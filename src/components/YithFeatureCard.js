@@ -24,10 +24,10 @@ export function YithFeatureCard({
             className="nfd-w-12 nfd-text-[--nfd-ecommerce-text-dark]"
           />
           <Title size="4" className="nfd-leading-normal nfd-my-4">
-            {yithPluginsMap.get(id).name}
+            {name}
           </Title>
         </div>
-        {description ? <span>{yithPluginsMap.get(id).desc}</span> : null}
+        {description ? <span>{description}</span> : null}
         {/* {yithPluginsMap.get(id).learnMore && (
           <Link
             className="nfd-flex nfd-mt-4 nfd-items-center nfd-gap-2 nfd-no-underline"
