@@ -4,7 +4,8 @@ import { AnalyticsSdk } from "../sdk/analytics";
 import { ArrowLongRightIcon } from "@heroicons/react/20/solid";
 
 export function YithFeatureCard({
-  yithProducts: { name, desc, primaryUrl, clickToBuyId },
+  setIsOpen,
+  setPluginName,
   yithPluginsMap,
   id,
   cards,
@@ -15,36 +16,59 @@ export function YithFeatureCard({
   const state = cardsInfo?.state;
   const isInstallDisabled =
     !state?.isActive && !state?.isQueueEmpty && !state?.isInstalling;
+
+  useEffect(() => {
+    setPluginName(cardsInfo?.text(state)?.title);
+    state?.isInstalling ? setIsOpen(true) : setIsOpen(false)
+  }, [state?.isInstalling])
+
   return (
     <Card id={yithPluginsMap.get(id).title}>
       <Card.Content className={"nfd-flex nfd-flex-col nfd-gap-3"}>
         <div className={"nfd-flex nfd-flex-row nfd-gap-3 nfd-items-center"}>
           <img
-            src={yithPluginsMap.get(id).image}
+            src={cardsInfo?.assets().Image}
             className="nfd-w-12 nfd-text-[--nfd-ecommerce-text-dark]"
           />
           <Title size="4" className="nfd-leading-normal nfd-my-4">
-            {name}
+            {cardsInfo?.text(state)?.title}
           </Title>
         </div>
-        <span>{desc}</span>
-        {/* {yithPluginsMap.get(id).learnMore && (
-          <Link
-            className="nfd-flex nfd-mt-4 nfd-items-center nfd-gap-2 nfd-no-underline"
-            href={yithPluginsMap.get(id).learnMore}
-            target="_blank"
-            onClick={() =>
-              AnalyticsSdk.track("commerce", name, {
-                value: "clicked on the learn more url",
-              })
-            }
-          >
-            <span>{__("Learn More", "wp-module-ecommerce")}</span>
-            <ArrowLongRightIcon className="nfd-h-5 nfd-text-black" />
-          </Link>
-        )} */}
+        <span>{cardsInfo?.text(state)?.description}</span>
       </Card.Content>
-      {isInstallDisabled ? (
+      <Card.Footer className={"nfd-border-0 nfd-p-0"}>
+        <Button
+          className="nfd-w-full nfd-h-9 nfd-border nfd-flex nfd-items-center nfd-gap-2"
+          variant="secondary"
+          onClick={() =>
+            state?.isActive
+              ? cardsInfo?.actions?.manageFeature?.(
+                cardsInfo?.state,
+                cardsInfo
+              )
+              : cardsInfo?.actions?.installFeature?.(
+                cardsInfo?.state,
+                cardsInfo
+              )
+          }
+          as="a"
+          href={state?.featureUrl}
+          isLoading={state?.isInstalling}
+          disabled={state?.isDisabled}
+          id={state?.isInstalling
+            ? "installing_" + yithPluginsMap.get(id).title
+            : state?.isActive
+              ? "manage_" + yithPluginsMap.get(id).title
+              : "enable_" + yithPluginsMap.get(id).title}
+        >
+          <span>
+            {state?.isInstalling
+              ? __("Installing...", "wp-module-ecommerce")
+              : cardsInfo?.text(state).actionName}
+          </span>
+        </Button>
+      </Card.Footer>
+      {/* {isInstallDisabled ? (
         <Card.Footer>
           <span>
             {__(
@@ -62,7 +86,7 @@ export function YithFeatureCard({
             href={state?.featureUrl}
             id={state?.isActive ? "manage_" + yithPluginsMap.get(id).title : "enable_" + yithPluginsMap.get(id).title}
           >
-            <span>{state?.isActive ? __("Manage") : __("Enable")}</span>
+            <span>{state?.isActive ? __("manage") : __("Enable")}</span>
           </Button>
         </Card.Footer>
       ) : state?.isUpsellNeeded ? (
@@ -126,7 +150,7 @@ export function YithFeatureCard({
             </span>
           </Button>
         </Card.Footer>
-      )}
+      )} */}
     </Card>
   );
 }
