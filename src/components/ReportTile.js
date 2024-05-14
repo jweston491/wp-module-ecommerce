@@ -17,7 +17,7 @@ export function ReportTile(props) {
         </Title>
         <div className="nfd-flex nfd-flex-row nfd-gap-2 nfd-items-center">
           <p className="nfd-text-2xl nfd-text-[--nfd-ecommerce-text-info] nfd-font-semibold">
-            {(props.state.reportValue === "$0.00" || props.state.reportValue === 0) ? "-" : props.state.reportValue}
+            {(props.state.reportValue === "$0.00" || props.state.reportValue === "0.00" || props.state.reportValue === 0) ? "-" : props.state.reportValue}
           </p>
           {delta > 0 && (
             <div>
